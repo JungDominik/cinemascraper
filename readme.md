@@ -13,7 +13,8 @@ In the long run, the goal is to implement the tool as a command line interface a
 TBD
 
 ## User notes
+TBD
 
 ## Contact
-dominikjung[at]gmx.de
-https://github.com/JungDominik
+* dominikjung[at]gmx.de
+* https://github.com/JungDominik
