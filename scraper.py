@@ -80,7 +80,7 @@ def get_times(searchmovie): #Works, refactor / aufteilen in Teilfunktionen
 
 def fillSessionDetails(): #Go-through-datastructure-method
     import pandas as pd
-    df_sessiondetails = pd.DataFrame(columns = ['Film', 'Cinema','Starttime']) #TODO: Correct columns as required below
+    df_sessiondetails = pd.DataFrame(columns = ['Film', 'Cinema','Starttime']) 
 
     numberfilms = len (filmobjects)
     for film in filmobjects:
@@ -99,6 +99,10 @@ def fillSessionDetails(): #Go-through-datastructure-method
             
             new_row = pd.DataFrame({'Film': filmtitle, 'Cinema':sessioncinema, 'Starttime':sessionstartdate}, index = [0])
             df_sessiondetails = pd.concat([new_row, df_sessiondetails.loc[:]]).reset_index(drop=True)
-            
+    df_sessiondetails.sort_values(by = ['Film', 'Starttime'])
+
     return df_sessiondetails
     # TODO: Take from the data structure, fill into a pandas dataframe (append as new row at the bottom)
+
+def findfilmsessions(film):
+    return fillSessionDetails().query("Film == @film")
