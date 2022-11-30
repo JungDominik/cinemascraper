@@ -39,19 +39,24 @@ processed = json.loads(datajson)
 
 filmlist = processed.get('props').get('pageProps').get('films')
 
-filmobjects = []
-for film in filmlist: filmobjects.append(film.get('fields'))
+filmfields = []
 
-sampleentry = filmobjects[0]
+for film in filmlist: filmfields.append(film.get('fields'))
+
+sampleentry = filmfields[0]
+
 movietitle = sampleentry.get('title')
+
 examplemoviesessions = sampleentry.get('sessions')
+
 onesession = examplemoviesessions[0]
+
 starttime = onesession.get('fields').get('startTime')
 cinemaname = onesession.get('fields').get('cinema').get('fields').get('name')
 
 def get_allmovies():
     allmovies = []
-    for film in filmobjects:
+    for film in filmfields:
         movietitle = film.get('title')
         allmovies.append(movietitle)
     return allmovies
@@ -76,29 +81,3 @@ def get_times(searchmovie): #Works, refactor / aufteilen in Teilfunktionen
 
     #search the right datastructure for the searchmovei
     # print the times
-
-
-def fillSessionDetails(): #Go-through-datastructure-method
-    import pandas as pd
-    df_sessiondetails = pd.DataFrame(columns = ['Film', 'Cinema','Starttime']) #TODO: Correct columns as required below
-
-    numberfilms = len (filmobjects)
-    for film in filmobjects:
-        #print(film.keys())
-        filmtitle = film.get('title')
-        filmsessions = film.get('sessions')
-        numbersessions = len (filmsessions)
-        for i in range (numbersessions):
-            sessionstartdate = filmsessions[i].get('fields').get('startTime')
-            sessioncinema = filmsessions[i].get('fields').get('cinema').get('fields').get('name')
-            #print ('{0} - {1} - {2}'.format(filmtitle, sessionstartdate, sessioncinema))
-            #df_sessiondetails = df_sessiondetails.append([[filmtitle, sessioncinema, sessionstartdate],])
-
-            #new_row = {'Film': filmtitle, 'Cinema':sessioncinema, 'Starttime':sessionstartdate}
-            #df_sessiondetails =df_sessiondetails.append(new_row, ignore_index = True)
-            
-            new_row = pd.DataFrame({'Film': filmtitle, 'Cinema':sessioncinema, 'Starttime':sessionstartdate}, index = [0])
-            df_sessiondetails = pd.concat([new_row, df_sessiondetails.loc[:]]).reset_index(drop=True)
-            
-    return df_sessiondetails
-    # TODO: Take from the data structure, fill into a pandas dataframe (append as new row at the bottom)
