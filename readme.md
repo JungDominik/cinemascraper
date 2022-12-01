@@ -1,5 +1,8 @@
 # Cinemascraper
 
+![image](https://user-images.githubusercontent.com/29613804/204919577-9fe5482b-4e65-4762-8ec3-0f4085e1ff55.png)
+
+
 ## Description
 The Berlin cinema scraper displays the currently running films and their showtimes by scraping the website of the local Berlin cinema.
 
