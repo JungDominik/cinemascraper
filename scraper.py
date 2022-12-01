@@ -37,22 +37,23 @@ datajson = soup.find("script", id = "__NEXT_DATA__").text
 
 processed = json.loads(datajson)
 
-filmlist = processed.get('props').get('pageProps').get('films')
+#filmlist = processed.get('props').get('pageProps').get('films')
+filmlist = processed['props']['pageProps']['films']
 
 filmobjects = []
-for film in filmlist: filmobjects.append(film.get('fields'))
+for film in filmlist: filmobjects.append(film['fields'])
 
 sampleentry = filmobjects[0]
-movietitle = sampleentry.get('title')
-examplemoviesessions = sampleentry.get('sessions')
+movietitle = sampleentry['title']
+examplemoviesessions = sampleentry['sessions']
 onesession = examplemoviesessions[0]
-starttime = onesession.get('fields').get('startTime')
-cinemaname = onesession.get('fields').get('cinema').get('fields').get('name')
+starttime = onesession['fields']['startTime']
+cinemaname = onesession['fields']['cinema']['fields']['name']
 
 def get_allmovies():
     allmovies = []
     for film in filmobjects:
-        movietitle = film.get('title')
+        movietitle = film.get['title']
         allmovies.append(movietitle)
     return allmovies
 
@@ -66,12 +67,12 @@ def show_allmovies():
 def get_times(searchmovie): #Works, refactor / aufteilen in Teilfunktionen
     sessionsforfilm = []
     for film in filmlist:
-        if film.get('fields').get('title') == searchmovie:
-            sessionsforfilm = film.get('fields').get('sessions')
+        if film['fields']['title'] == searchmovie:
+            sessionsforfilm = film['fields']['sessions']
     print('numberofsessions')
     print (len(sessionsforfilm))
     for session in sessionsforfilm:
-        starttime = session.get('fields').get('startTime')
+        starttime = session['fields']['startTime']
         print (starttime)
 
     #search the right datastructure for the searchmovei
@@ -85,12 +86,12 @@ def fillSessionDetails(): #Go-through-datastructure-method
     numberfilms = len (filmobjects)
     for film in filmobjects:
         #print(film.keys())
-        filmtitle = film.get('title')
-        filmsessions = film.get('sessions')
+        filmtitle = film['title']
+        filmsessions = film['sessions']
         numbersessions = len (filmsessions)
         for i in range (numbersessions):
-            sessionstartdate = filmsessions[i].get('fields').get('startTime')
-            sessioncinema = filmsessions[i].get('fields').get('cinema').get('fields').get('name')
+            sessionstartdate = filmsessions[i]['fields']['startTime']
+            sessioncinema = filmsessions[i]['fields']['cinema']['fields']['name']
             #print ('{0} - {1} - {2}'.format(filmtitle, sessionstartdate, sessioncinema))
             #df_sessiondetails = df_sessiondetails.append([[filmtitle, sessioncinema, sessionstartdate],])
 
