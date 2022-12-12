@@ -53,7 +53,7 @@ cinemaname = onesession['fields']['cinema']['fields']['name']
 def get_allmovies():
     allmovies = []
     for film in filmobjects:
-        movietitle = film.get['title']
+        movietitle = film['title']
         allmovies.append(movietitle)
     return allmovies
 
